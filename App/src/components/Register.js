@@ -27,7 +27,7 @@ const Login = () => {
     navigate("/login");
   }
   return (
-    <div>
+    <div className="d-block mx-auto w-100 pt-5 mt-5 login-box">
       <h2 className="text-center">Register</h2>
     <form onSubmit={_registerUser}>
       <div>

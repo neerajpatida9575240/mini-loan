@@ -93,54 +93,50 @@ const AllLoan = () => {
       ) : (
         <>
           <main>
-            <div id="main" className="pb-0">
-              <div className="main-wrap">
-                <div className="container pt-4 pb-5">
-                  <AdminHeader />
-                  <div className="row  submission-rowwrap">
-                    <div className="col-md-12">
-                      <div className="card dashboard-box addagent-datatable submissions-tabs-view">
-                        <h3 className="h3-wrapheading mt-2 mb-4 pb-2  text-start">
-                          Repayment
-                        </h3>
-                        <div className="col-sm-12">
-                          <div className="viewagent-datatable table-responsive">
-                            <table className="table" id="table-width">
-                              <thead>
+            <AdminHeader />
+            <div className="d-block mx-auto w-100 pt-5 mt-5 table-box">
+              <div className="row  submission-rowwrap">
+                <div className="col-md-12">
+                  <div className="card dashboard-box addagent-datatable submissions-tabs-view">
+                    <h2 className="h3-wrapheading ps-2 mb-4 py-2  text-start">
+                      Payment
+                    </h2>
+                    <div className="col-sm-12">
+                      <div className="viewagent-datatable table-responsive">
+                        <table className="table" id="table-width">
+                          <thead>
+                            <tr>
+                              <th scope="col">Policy Name</th>
+                              <th scope="col">Loan Amount</th>
+                              <th scope="col">Balance Amount</th>
+                              <th scope="col">Weekly Payment</th>
+                              <th scope="col">Weekly Payment Date</th>
+                              <th scope="col" width="10%">
+                                Action
+                              </th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {data && data?.length !== 0 && (
+                              <>
                                 <tr>
-                                  <th scope="col">Policy Name</th>
-                                  <th scope="col">Loan Amount</th>
-                                  <th scope="col">Balance Amount</th>
-                                  <th scope="col">Weekly Payment</th>
-                                  <th scope="col">Weekly Payment Date</th>
-                                  <th scope="col" width="10%">
-                                    Action
-                                  </th>
+                                  <td>{data.policyname}</td>
+                                  <td>{data.loan_amount}</td>
+                                  <td>{data.balance_amount}</td>
+                                  <td>
+                                    {(
+                                      data.balance_amount / data.loan_term
+                                    ).toFixed(2)}
+                                  </td>
+                                  <td>{formatDate(data.dueDate, 0)}</td>
+                                  <td>
+                                    <button onClick={toggle}>Pay</button>
+                                  </td>
                                 </tr>
-                              </thead>
-                              <tbody>
-                                {data && data?.length !== 0 && (
-                                  <>
-                                    <tr>
-                                      <td>{data.policyname}</td>
-                                      <td>{data.loan_amount}</td>
-                                      <td>{data.balance_amount}</td>
-                                      <td>
-                                        {(
-                                          data.balance_amount / data.loan_term
-                                        ).toFixed(2)}
-                                      </td>
-                                      <td>{formatDate(data.dueDate, 0)}</td>
-                                      <td>
-                                        <button onClick={toggle}>Pay</button>
-                                      </td>
-                                    </tr>
-                                  </>
-                                )}
-                              </tbody>
-                            </table>
-                          </div>
-                        </div>
+                              </>
+                            )}
+                          </tbody>
+                        </table>
                       </div>
                     </div>
                   </div>

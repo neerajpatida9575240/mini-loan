@@ -101,8 +101,9 @@ const LoanApplication = () => {
   };
 
   return (
-    <div>
-      <AdminHeader />
+    <>
+    <AdminHeader />
+      <div className="d-block mx-auto w-100 pt-5 mt-5 content-box">
       <h1 className="mb-5">Apply for loan</h1>
       <form onSubmit={_Submitloan}>
         <div className="form-group form-mod has-feedback form-field form-floating ">
@@ -157,7 +158,8 @@ const LoanApplication = () => {
         </ModalFooter>
       </Modal>
       <ToastContainer />
-    </div>
+      </div>
+    </>
   );
 };
 

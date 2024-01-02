@@ -17,10 +17,6 @@ body {
   font-family: 'Arial', sans-serif;
   background-color: #f4f4f4;
   margin: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
 }
 
 .login-container {
@@ -72,4 +68,21 @@ button:hover {
 .error-message {
   color: #dc3545;
   margin-top: 8px;
+}
+.content-box{
+  max-width: 40rem;
+}
+.table-box{
+  max-width: 100rem;
+}
+.nav-logout{
+  color: #fff;
+}
+.login-box{
+  max-width: 25rem;
+}
+.loader-setting{
+  position: absolute;
+  top: 50%;
+  left: 50%;
 }

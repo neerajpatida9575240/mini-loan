@@ -30,7 +30,7 @@ const Login = () => {
   }
 
   return (
-    <div>
+      <div className="d-block mx-auto w-100 pt-5 mt-5 login-box">
       <h2 className="text-center">Login</h2>
     <form onSubmit={_loginUser}>
       <div>
@@ -79,7 +79,7 @@ const Login = () => {
        PROTECT • STREAMLINE • GROW{" "}
      </span>
    </div>
-    </div>
+   </div>
   );
 };
 

@@ -8,11 +8,11 @@ import AdminHeader from "../common/AdminHeader";
 const MainPage = (props) => {
   return (
     <main>
+      <AdminHeader />
       <div id="main" className="pb-0">
         <div className="main-wrap">
           <div className="container pt-4 pb-5">
             <Row>
-              <AdminHeader />
               <Col sm="12">
                 <div className="text-center pt-4 pb-4">
                   <h1>Welcome to Mini Loan App</h1>

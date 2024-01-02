@@ -26,10 +26,10 @@ const UnauthorizedAccess = () => {
                   <p className="text-center">
                     {storageToken !== null && (
                       <NavLink
-                        to="/dashboard"
+                        to="/login"
                         className="btn btn-primary btn-sm  unauthorized-btn"
                       >
-                        Back to Dashboard
+                        Back to Login
                       </NavLink>
                     )}
                   </p>
