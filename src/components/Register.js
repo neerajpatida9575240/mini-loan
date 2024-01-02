@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { registerUser } from "../service";
-import Loan_app from "../asset/Image/aaa.jpg"
 
 const Login = () => {
   const [email, setemail] = useState("");
