@@ -18,13 +18,14 @@ module.exports = (app) => {
         parseInt(req.body.newLoan.loan_amount) /
         (parseInt(req.body.newLoan.loan_term));
       const newLoan = new LoanModel({
-        name: req.body.newLoan.name,
+        policyname: req.body.newLoan.name,
         email: req.body.newLoan.email,
         loan_amount: parseFloat(req.body.newLoan.loan_amount),
         loan_term: parseInt(req.body.newLoan.loan_term),
         createdBy: req.body.newLoan.createdBy,
         loan_approved: "Pending",
         weekly_payment: parseFloat(weekly_payment),
+        balance_amount: parseFloat(req.body.newLoan.loan_amount),
       });
   
       newLoan.save().then((loan) => res.json({ status: true, data: loan }));
@@ -112,13 +113,31 @@ module.exports = (app) => {
   //PayLoan
   app.post("/PayLoan", async (req, res) => {
     try {
-        await LoanModel.updateOne(
-          { _id: req.query.Id },
-          { $set: { paymentDate: req.body.date } }
-        );
+      const loan = await LoanModel.findOne({ _id: req.query.id });
+      if (loan === null) {
+        return res.json({ success: false, error: "Loan not found" });
+      }
+  
+      // Calculate new dueDate by adding 7 days to the existing dueDate
+      const currentDueDate = loan.dueDate;
+      const newDueDate = new Date(currentDueDate.getTime() + 7 * 24 * 60 * 60 * 1000);
+      await LoanModel.updateOne(
+        { _id: req.query.id },
+        {
+          $set: {
+            dueDate: newDueDate,
+            balance_amount: (loan.balance_amount - parseInt(req.body.payment)),
+            loan_term: (loan.loan_term - 1),
+            loan_approved: (loan.loan_term - 1 === 0 ? "Paid" : "Approved"),
+          },
+        }
+      );
+  
+      res.json({ success: true });
     } catch (err) {
-      // Error in fetching loan detail
-      res.json({ success: false, error: "Error in Get Loan Detail" });
+      // Error handling
+      console.error("Error in PayLoan:", err);
+      res.json({ success: false, error: "Error in PayLoan" });
     }
-  });
-};
+  })
+}
