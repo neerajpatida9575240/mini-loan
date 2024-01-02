@@ -11,7 +11,7 @@ const AllLoan = () => {
   const [modal, setModal] = useState(false);
   const [data, setData] = useState(null);
   const [loader, setLoader] = useState(false);
-  const [payment, setPayment] = useState("");
+  const [payment, setPayment] = useState();
   const navigate = useNavigate();
   let notication = "";
 
@@ -42,13 +42,15 @@ const AllLoan = () => {
     var result = GetLoanDetail(id);
     result.then((response) => {
       setData(response.data);
+      setPayment(response.data.weekly_payment)
       setLoader(false);
     });
   };
 
   const handlePayment = () => {
     notication = toast.loading("Please wait...");
-    if (payment >= data.weekly_payment) {
+    debugger
+    if (parseFloat(payment) >= parseFloat(data.weekly_payment)) {
       const Date = data.dueDate;
       PayLoan(id, payment, Date).then((data) => {
         if (data.success) {
@@ -126,9 +128,9 @@ const AllLoan = () => {
                                       <td>{data.loan_amount}</td>
                                       <td>{data.balance_amount}</td>
                                       <td>
-                                        {(
-                                          data.balance_amount / data.loan_term
-                                        ).toFixed(2)}
+                                        {
+                                          data.weekly_payment
+                                        }
                                       </td>
                                       <td>{formatDate(data.dueDate, 0)}</td>
                                       <td>
