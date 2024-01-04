@@ -30,7 +30,7 @@ export default function App() {
     <>
       <MDBNavbar expand="lg" dark bgColor="dark">
         <MDBContainer fluid>
-          <MDBNavbarBrand href="">Dashboard</MDBNavbarBrand>
+          <MDBNavbarBrand href="/dashboard">Dashboard</MDBNavbarBrand>
           <MDBNavbarToggler
             type="button"
             data-target="#navbarColor02"

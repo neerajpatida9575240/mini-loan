@@ -4,6 +4,7 @@ import loan_img from "../asset/Image/loan_img.jpg";
 import repay_img from "../asset/Image/repay_img.jpg";
 import { Link } from "react-router-dom";
 import AdminHeader from "../common/AdminHeader";
+import Footer from "../common/Footer";
 
 const MainPage = (props) => {
   return (
@@ -60,6 +61,7 @@ const MainPage = (props) => {
           </div>
         </div>
       </div>
+      <Footer />
     </main>
   );
 };

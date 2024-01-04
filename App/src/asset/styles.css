@@ -86,3 +86,16 @@ button:hover {
   top: 50%;
   left: 50%;
 }
+
+.footer {
+  background-color: black; /* Change this to your desired color */
+  color: white; /* Set text color to contrast with the background */
+  text-align: center;
+  padding: 6px;
+}
+
+.d-flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
