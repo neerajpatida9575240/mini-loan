@@ -19,8 +19,6 @@ async function LoanList(page, email, role) {
     .then((data) => {
       return data;
     });
-    
-  console.log("GetResponse", GetResponse);
   return GetResponse;
 }
 

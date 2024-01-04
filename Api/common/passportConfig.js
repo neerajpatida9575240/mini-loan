@@ -31,7 +31,6 @@ function fromCustomHeader(header_name) {
       if (request.headers[header_name]) {
         token = request.headers[header_name];
       }
-      console.log("xszczs",token)
       if (token === null) {
         token = request.cookies.auth;
       }

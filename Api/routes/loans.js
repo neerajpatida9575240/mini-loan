@@ -96,7 +96,6 @@ module.exports = (app) => {
   app.get("/GetLoanDetail", async (req, res) => {
     try {
       const data = await LoanModel.findOne({_id: req.query.id});
-      console.log("data",data)
       if (data) {
         // Loan detail found
         res.json({ success: true, data: data });
