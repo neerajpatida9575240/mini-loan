@@ -102,7 +102,7 @@ const AllLoan = () => {
                                     <td>{items.policyname}</td>
                                     <td>{items.email}</td>
                                     <td>{items.loan_amount}</td>
-                                    <td>{items.weekly_payment}</td>
+                                    <td>{parseFloat(items.weekly_payment).toFixed(2)}</td>
                                     <td>{formatDate(items.createdDate)}</td>
                                     <td>{items.loan_approved}</td>
 

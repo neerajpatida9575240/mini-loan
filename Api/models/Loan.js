@@ -8,7 +8,7 @@ const LoanSchema = new mongoose.Schema(
         loan_term: { type: Number},
         loan_approved: { type: String},
         createdBy:{type: String},
-        weekly_payment:{type: String},
+        weekly_payment:{type: Number},
         createdDate: { type: Date, default: Date.now },
         paymentDate: { type: Date, default: Date.now},
         balance_amount: { type: Number},

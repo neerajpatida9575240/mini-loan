@@ -11,7 +11,7 @@ const AllLoan = () => {
   const [modal, setModal] = useState(false);
   const [data, setData] = useState(null);
   const [loader, setLoader] = useState(false);
-  const [payment, setPayment] = useState("");
+  const [payment, setPayment] = useState(0);
   const navigate = useNavigate();
   let notication = "";
 
@@ -31,7 +31,7 @@ const AllLoan = () => {
           onClose: () => navigate("/all_loans/1"),
         })
       : toast.update(val, {
-          render: `Payment amount will be greate than weekly payment amount ${data.weekly_payment}`,
+          render: `Amount will be greate than weekly payment amount ${data.weekly_payment}`,
           type: "error",
           isLoading: false,
           autoClose: 2000,
@@ -43,12 +43,14 @@ const AllLoan = () => {
     result.then((response) => {
       setData(response.data);
       setLoader(false);
+      setPayment(parseFloat(data?.weekly_payment).toFixed(2))
     });
   };
 
   const handlePayment = () => {
     notication = toast.loading("Please wait...");
-    if (payment >= data.weekly_payment) {
+    if (parseFloat(payment).toFixed(2) >= parseFloat(data.weekly_payment).toFixed(2)) {
+      
       const Date = data.dueDate;
       PayLoan(id, payment, Date).then((data) => {
         if (data.success) {
@@ -155,7 +157,7 @@ const AllLoan = () => {
                     type="text"
                     id="loan_amount"
                     name="loan_amount"
-                    value={data.weekly_payment}
+                    value={parseFloat(data.weekly_payment).toFixed(2)}
                     readOnly // Make the input read-only if data.loan_term is 1
                   />
                 ) : (
@@ -166,7 +168,7 @@ const AllLoan = () => {
                     type="text"
                     id="loan_amount"
                     name="loan_amount"
-                    defaultValue={data ? data.weekly_payment : 0}
+                    defaultValue={data ? parseFloat(data.weekly_payment).toFixed(2) : 0}
                     onChange={(e) => setPayment(e.target.value)}
                   />
                 )}

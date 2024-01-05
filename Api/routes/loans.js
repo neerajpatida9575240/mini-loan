@@ -116,16 +116,16 @@ module.exports = (app) => {
       if (loan === null) {
         return res.json({ success: false, error: "Loan not found" });
       }
-  
       // Calculate new dueDate by adding 7 days to the existing dueDate
       const currentDueDate = loan.dueDate;
       const newDueDate = new Date(currentDueDate.getTime() + 7 * 24 * 60 * 60 * 1000);
+      const remainingBalance = (parseFloat(loan.balance_amount) - parseFloat(req.body.payment));
       await LoanModel.updateOne(
         { _id: req.query.id },
         {
           $set: {
             dueDate: newDueDate,
-            balance_amount: (loan.balance_amount - parseInt(req.body.payment)),
+            balance_amount: remainingBalance,
             loan_term: (loan.loan_term - 1),
             loan_approved: (loan.loan_term - 1 === 0 ? "Paid" : "Approved"),
           },
