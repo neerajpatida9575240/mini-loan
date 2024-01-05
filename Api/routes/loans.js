@@ -119,15 +119,27 @@ module.exports = (app) => {
       // Calculate new dueDate by adding 7 days to the existing dueDate
       const currentDueDate = loan.dueDate;
       const newDueDate = new Date(currentDueDate.getTime() + 7 * 24 * 60 * 60 * 1000);
-      const remainingBalance = (parseFloat(loan.balance_amount) - parseFloat(req.body.payment));
+      var weeklyPayment = 0;
+      var remainingBalance = 0;
+      var loanterm = 0;
+      if(loan.loan_term <= 1){
+        loanterm = loan.loan_term - 1;
+        weeklyPayment = 0;
+        remainingBalance = 0;
+      }else{
+        loanterm = loan.loan_term - 1;
+        remainingBalance = (parseFloat(loan.balance_amount) - parseFloat(req.body.payment));
+        weeklyPayment = parseFloat(remainingBalance / (loan.loan_term - 1)).toFixed(2);
+      }
       await LoanModel.updateOne(
         { _id: req.query.id },
         {
           $set: {
             dueDate: newDueDate,
             balance_amount: remainingBalance,
-            loan_term: (loan.loan_term - 1),
+            loan_term: loanterm,
             loan_approved: (loan.loan_term - 1 === 0 ? "Paid" : "Approved"),
+            weekly_payment: weeklyPayment
           },
         }
       );

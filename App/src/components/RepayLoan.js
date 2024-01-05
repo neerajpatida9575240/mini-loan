@@ -43,14 +43,20 @@ const AllLoan = () => {
     result.then((response) => {
       setData(response.data);
       setLoader(false);
-      setPayment(parseFloat(data?.weekly_payment).toFixed(2))
+      const weeklyPayment = response.data.weekly_payment;
+      setPayment(parseFloat(weeklyPayment).toFixed(2));
     });
   };
 
   const handlePayment = () => {
     notication = toast.loading("Please wait...");
-    if (parseFloat(payment).toFixed(2) >= parseFloat(data.weekly_payment).toFixed(2)) {
-      
+    if (payment === undefined || payment === 0) {
+      setPayment(data.weekly_payment);
+    }
+    if (
+      parseFloat(payment).toFixed(2) >=
+      parseFloat(data.weekly_payment).toFixed(2)
+    ) {
       const Date = data.dueDate;
       PayLoan(id, payment, Date).then((data) => {
         if (data.success) {
@@ -125,11 +131,7 @@ const AllLoan = () => {
                                   <td>{data.policyname}</td>
                                   <td>{data.loan_amount}</td>
                                   <td>{data.balance_amount}</td>
-                                  <td>
-                                    {(
-                                      data.balance_amount / data.loan_term
-                                    ).toFixed(2)}
-                                  </td>
+                                  <td> {data.weekly_payment} </td>
                                   <td>{formatDate(data.dueDate, 0)}</td>
                                   <td>
                                     <button onClick={toggle}>Pay</button>
@@ -157,7 +159,7 @@ const AllLoan = () => {
                     type="text"
                     id="loan_amount"
                     name="loan_amount"
-                    value={parseFloat(data.weekly_payment).toFixed(2)}
+                    defaultValue={parseFloat(data.weekly_payment).toFixed(2)}
                     readOnly // Make the input read-only if data.loan_term is 1
                   />
                 ) : (
@@ -168,7 +170,9 @@ const AllLoan = () => {
                     type="text"
                     id="loan_amount"
                     name="loan_amount"
-                    defaultValue={data ? parseFloat(data.weekly_payment).toFixed(2) : 0}
+                    defaultValue={
+                      data ? parseFloat(data.weekly_payment).toFixed(2) : 0
+                    }
                     onChange={(e) => setPayment(e.target.value)}
                   />
                 )}
